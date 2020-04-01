@@ -15,17 +15,55 @@ namespace examination_1
                 numberArray = (int[])serilazier.Deserialize(reader, typeof(int[]));
             }
    
-            Max(numberArray);
-            Min(numberArray);
+            Console.WriteLine(numberArray.Max());
+            Console.WriteLine(numberArray.Min());
+            Median(numberArray);
+            Avrage(numberArray);
+            range(numberArray);
         }
 
-        static void Max(int[] numberArray )
+        static int Max(int[] numberArray )
         {
-            Console.WriteLine(numberArray.Max());
+             
+            return numberArray.Max();
         }
-        static void Min(int[] numberArray ) 
+        static int Min(int[] numberArray ) 
         {
-            Console.WriteLine(numberArray.Min());
+             
+            return numberArray.Min();
+        }
+        static void Median(int[] numberArray )
+        {
+            int [] arr = numberArray;
+            int arrLength = arr.Length;
+            Array.Sort(arr);
+            double median = 0;
+           
+           if (arrLength % 2 == 0) {
+            median = (arr[arrLength / 2 - 1] + arr[arrLength / 2]) / 2;
+            } else {
+             median = arr[(arrLength - 1) / 2];
+            }
+            Console.WriteLine(median);
+
+           
+        }
+//https://www.tutorialspoint.com/chash-average-method
+        static void Avrage(int[] numberArray ) 
+        {
+        double avrg = Enumerable.Average(numberArray.AsEnumerable());  
+        Console.WriteLine(Math.Round(avrg, 1));
+        }
+
+        static void range (int[] numberArray) 
+        {
+          Console.WriteLine(Max(numberArray) - Min(numberArray));
+        }
+
+        static void descriptivStatic(int[] numberArray) 
+        {
+            
         }
     }
+
 }
