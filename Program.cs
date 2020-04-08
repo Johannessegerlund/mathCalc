@@ -14,8 +14,8 @@ namespace examination_1
                 var serilazier = new JsonSerializer();
                 numberArray = (int[])serilazier.Deserialize(reader, typeof(int[]));
             }
-   
-            Console.WriteLine(Max(numberArray));
+            descriptiveStatic(numberArray);
+            Console.WriteLine(Max(numberArray))
             Console.WriteLine(Min(numberArray));
             Median(numberArray);
             Console.WriteLine(Avrage(numberArray));
@@ -84,21 +84,24 @@ namespace examination_1
 
         static void mode(int[] numberArray)
         {
-        var result = numberArray.GroupBy(x => x).
-        Select(x => new { Count = x.Count(), Char = x.Key }).
-        GroupBy(x => x.Count, x => x.Char).
-        OrderByDescending(x => x.Key).First();
-
-        foreach (var v in result) {
-        Console.WriteLine( v);
+        var order = numberArray.GroupBy(i => i) 
+        .OrderByDescending(g => g.Count()); 
+        
+        var max = order.Max(g => g.Count());
+        int [] mode = order.Where(g => g.Count() == max).Select(g => g.Key).ToArray(); 
+         
+         Console.WriteLine(string.Join("," , mode));
+        
+       
+        
         }
-        }
 
-        static dynamic descriptiveStatic(int[] numberArray) 
+        static dynamic descriptiveStatic (int[] numberArray) 
         {
             
+        
+           
         }
-
     }
 
 }
