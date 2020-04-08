@@ -9,7 +9,7 @@ namespace examination_1
         static void Main(string[] args)
         {
             int[] numberArray;
-            using (var reader = File.OpenText("data.json"))
+            using (var reader = File.OpenText("test.json"))
             {
                 var serilazier = new JsonSerializer();
                 numberArray = (int[])serilazier.Deserialize(reader, typeof(int[]));
@@ -47,44 +47,44 @@ namespace examination_1
 //https://www.tutorialspoint.com/chash-average-method
         static double Mean(int[] numberArray ) 
         {
-        double avrg = Enumerable.Average(numberArray.AsEnumerable());  
-        return Math.Round(avrg, 1);
+            double avrg = Enumerable.Average(numberArray.AsEnumerable());  
+            return Math.Round(avrg, 1);
         }
 
 
 
         static int range (int[] numberArray) 
         {
-          return (Max(numberArray) - Min(numberArray));
+            return (Max(numberArray) - Min(numberArray));
         }
 
         static double standardDiviation(int[] numberArray) 
         {
-        double avrg = Mean(numberArray);
-        double sqrDiff = 0.0;
+            double avrg = Mean(numberArray);
+            double sqrDiff = 0.0;
         
-        double diff = 0.0;
-        foreach(double value in numberArray) 
+            double diff = 0.0;
+            foreach(double value in numberArray) 
         {
         
-        diff = value - avrg;
+            diff = value - avrg;
         
-        sqrDiff += (diff * diff) / numberArray.Length ;
+            sqrDiff += (diff * diff) / numberArray.Length ;
         }
-        var stdDev = Math.Sqrt(sqrDiff);
-        return (Math.Round(stdDev, 1));
+            var stdDev = Math.Sqrt(sqrDiff);
+            return (Math.Round(stdDev, 1));
 
         }
 
         static int[] mode(int[] numberArray)
         {
-        var order = numberArray.GroupBy(i => i) 
-        .OrderByDescending(g => g.Count()); 
+            var order = numberArray.GroupBy(i => i) 
+            .OrderByDescending(g => g.Count()); 
         
-        var max = order.Max(g => g.Count());
-        int [] mode = order.Where(g => g.Count() == max).Select(g => g.Key).ToArray(); 
+            var max = order.Max(g => g.Count());
+            int [] mode = order.Where(g => g.Count() == max).Select(g => g.Key).ToArray(); 
          
-        return mode;
+            return mode;
         
        
         
@@ -92,12 +92,17 @@ namespace examination_1
 
         static dynamic descriptiveStatic (int[] numberArray) 
         {
-            
-        return ("Maximum:" + " " + Max(numberArray), "minimum:" + " " + Min(numberArray), 
-        "Median:" + " " + Median(numberArray), "medelvärde:" + " " + Mean(numberArray), 
-        "variationsbredd:" + " " + range(numberArray), "standardavvikelse:" + " " + standardDiviation(numberArray) + " ",
-        "typvärde:" + " " + string.Join("," , mode(numberArray)));
-           
+            if (numberArray == null)
+        {
+            throw new System.ArgumentException("Data can not be null");
+        }   
+            else 
+        {
+            return ("Maximum:" + " " + Max(numberArray), "minimum:" + " " + Min(numberArray), 
+            "Median:" + " " + Median(numberArray), "medelvärde:" + " " + Mean(numberArray), 
+            "variationsbredd:" + " " + range(numberArray), "standardavvikelse:" + " " + standardDiviation(numberArray) + " ",
+            "typvärde:" + " " + string.Join("," , mode(numberArray)));
+        }
         }
     }
 
