@@ -14,14 +14,8 @@ namespace examination_1
                 var serilazier = new JsonSerializer();
                 numberArray = (int[])serilazier.Deserialize(reader, typeof(int[]));
             }
-            descriptiveStatic(numberArray);
-            Console.WriteLine(Max(numberArray))
-            Console.WriteLine(Min(numberArray));
-            Median(numberArray);
-            Console.WriteLine(Avrage(numberArray));
-            range(numberArray);
-            standardDiviation(numberArray);
-            mode(numberArray);
+            Console.WriteLine(descriptiveStatic(numberArray));
+           
         }
 
         static int Max(int[] numberArray )
@@ -34,7 +28,7 @@ namespace examination_1
              
             return numberArray.Min();
         }
-        static void Median(int[] numberArray )
+        static double Median(int[] numberArray )
         {
             int [] arr = numberArray;
             int arrLength = arr.Length;
@@ -46,12 +40,12 @@ namespace examination_1
             } else {
              median = arr[(arrLength - 1) / 2];
             }
-            Console.WriteLine(median);
+            return median;
 
            
         }
 //https://www.tutorialspoint.com/chash-average-method
-        static double Avrage(int[] numberArray ) 
+        static double Mean(int[] numberArray ) 
         {
         double avrg = Enumerable.Average(numberArray.AsEnumerable());  
         return Math.Round(avrg, 1);
@@ -59,14 +53,14 @@ namespace examination_1
 
 
 
-        static void range (int[] numberArray) 
+        static int range (int[] numberArray) 
         {
-          Console.WriteLine(Max(numberArray) - Min(numberArray));
+          return (Max(numberArray) - Min(numberArray));
         }
 
-        static void standardDiviation(int[] numberArray) 
+        static double standardDiviation(int[] numberArray) 
         {
-        double avrg = Avrage(numberArray);
+        double avrg = Mean(numberArray);
         double sqrDiff = 0.0;
         
         double diff = 0.0;
@@ -78,11 +72,11 @@ namespace examination_1
         sqrDiff += (diff * diff) / numberArray.Length ;
         }
         var stdDev = Math.Sqrt(sqrDiff);
-        Console.WriteLine(Math.Round(stdDev, 1));
+        return (Math.Round(stdDev, 1));
 
         }
 
-        static void mode(int[] numberArray)
+        static int[] mode(int[] numberArray)
         {
         var order = numberArray.GroupBy(i => i) 
         .OrderByDescending(g => g.Count()); 
@@ -90,7 +84,7 @@ namespace examination_1
         var max = order.Max(g => g.Count());
         int [] mode = order.Where(g => g.Count() == max).Select(g => g.Key).ToArray(); 
          
-         Console.WriteLine(string.Join("," , mode));
+        return mode;
         
        
         
@@ -99,7 +93,10 @@ namespace examination_1
         static dynamic descriptiveStatic (int[] numberArray) 
         {
             
-        
+        return ("Maximum:" + " " + Max(numberArray), "minimum:" + " " + Min(numberArray), 
+        "Median:" + " " + Median(numberArray), "medelvärde:" + " " + Mean(numberArray), 
+        "variationsbredd:" + " " + range(numberArray), "standardavvikelse:" + " " + standardDiviation(numberArray) + " ",
+        "typvärde:" + " " + string.Join("," , mode(numberArray)));
            
         }
     }
