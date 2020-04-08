@@ -94,8 +94,12 @@ namespace examination_1
         {
             if (numberArray == null)
         {
-            throw new System.ArgumentException("Data can not be null");
-        }   
+            throw new System.ArgumentNullException("Data can not be null");
+        }  
+            if(numberArray.Length == 0) 
+        {
+            throw new InvalidOperationException("Sequence contains no elements");
+        }
             else 
         {
             return ("Maximum:" + " " + Max(numberArray), "minimum:" + " " + Min(numberArray), 
