@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System.IO;
 using System.Linq;
+using System.Collections.Generic; 
 namespace examination_1
 {
     class Program
@@ -9,7 +10,7 @@ namespace examination_1
         static void Main(string[] args)
         {
             int[] numberArray;
-            using (var reader = File.OpenText("test.json"))
+            using (var reader = File.OpenText("data.json"))
             {
                 var serilazier = new JsonSerializer();
                 numberArray = (int[])serilazier.Deserialize(reader, typeof(int[]));
@@ -44,10 +45,10 @@ namespace examination_1
 
            
         }
-//https://www.tutorialspoint.com/chash-average-method
+
         static double Mean(int[] numberArray ) 
         {
-            double avrg = Enumerable.Average(numberArray.AsEnumerable());  
+            double avrg = numberArray.Average();
             return Math.Round(avrg, 1);
         }
 
@@ -78,13 +79,17 @@ namespace examination_1
 
         static int[] mode(int[] numberArray)
         {
+            
+            
             var order = numberArray.GroupBy(i => i) 
-            .OrderByDescending(g => g.Count()); 
+            .OrderByDescending(o => o.Count()); 
         
-            var max = order.Max(g => g.Count());
-            int [] mode = order.Where(g => g.Count() == max).Select(g => g.Key).ToArray(); 
-         
-            return mode;
+            var maxi = order.Max(o => o.Count());
+            int [] mode = order.Where(o => o.Count() == maxi)
+            .Select(o => o.Key)
+            .ToArray(); 
+            
+             return mode;
         
        
         
